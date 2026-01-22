@@ -47,7 +47,21 @@
       box-shadow: inset 0 0 10px #000, 0 0 16px #222; 
     }
 
-    /* REELS */
+    /* REEL CONTAINER (handles smooth spin) */
+    .reel-container {
+      width: 40px;
+      height: 40px;
+      animation: spin 4s linear infinite paused;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body.playing .reel-container {
+      animation-play-state: running;
+    }
+
+    /* REEL (tiny wobble only) */
     .reel {
       width: 40px;
       height: 40px;
@@ -56,7 +70,11 @@
       box-shadow: inset 0 0 4px #555;
       position: relative;
       transform-origin: center;
-      animation: spin 4s linear infinite paused;
+      animation: wobble 1s ease-in-out infinite alternate paused;
+    }
+
+    body.playing .reel {
+      animation-play-state: running;
     }
 
     .reel::before {
@@ -71,14 +89,9 @@
       border-radius: 50%;
     }
 
-    /* REEL SPIN + subtle wobble */
-    body.playing .reel {
-      animation: spin 4s linear infinite, wobble 1s ease-in-out infinite alternate;
-    }
-
     @keyframes wobble {
       0% { transform: rotate(0deg); }
-      50% { transform: rotate(0.5deg); } /* tiny wobble */
+      50% { transform: rotate(0.5deg); }
       100% { transform: rotate(0deg); }
     }
 
@@ -124,8 +137,8 @@
   <div class="label">archive 001</div>
 
   <div class="cassette">
-    <div class="reel" id="reel-left"></div>
-    <div class="reel" id="reel-right"></div>
+    <div class="reel-container"><div class="reel"></div></div>
+    <div class="reel-container"><div class="reel"></div></div>
     <div class="tape"></div>
   </div>
 
