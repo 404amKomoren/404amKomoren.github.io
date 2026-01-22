@@ -9,15 +9,103 @@
       background: black;
       color: #888;
       font-family: monospace;
-      padding: 60px;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
     }
+
+    .label {
+      font-size: 13px;
+      opacity: 0.6;
+      margin-bottom: 20px;
+    }
+
+    .vinyl {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #444 60%, #111 100%);
+      box-shadow: inset 0 0 10px #222, 0 0 20px #111;
+      position: relative;
+      margin-bottom: 20px;
+      animation: spin 8s linear infinite, wobble 4s ease-in-out infinite;
+    }
+
+    .vinyl::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border-radius: 50%;
+      background: #999;
+      box-shadow: 0 0 8px #aaa;
+    }
+
+    button {
+      background: transparent;
+      border: 1px solid #333;
+      color: #777;
+      padding: 8px 18px;
+      font-family: monospace;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    button:hover {
+      opacity: 1;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes wobble {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(0.5deg); }
+      50% { transform: rotate(-0.5deg); }
+      75% { transform: rotate(0.3deg); }
+    }
+
   </style>
 </head>
 
 <body>
 
-  <p>archive 001</p>
-  <p>audio fragment pending</p>
+  <div class="label">archive 001</div>
+  <div class="vinyl"></div>
+  <button onclick="toggleAudio()">listen</button>
+
+  <audio id="audio" loop>
+    <source src="fragment-001.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const audio = document.getElementById("audio");
+    const vinyl = document.querySelector(".vinyl");
+    let playing = false;
+
+    function toggleAudio() {
+      if (!playing) {
+        audio.volume = 0.7;
+        audio.play();
+        playing = true;
+        vinyl.style.animation = "spin 8s linear infinite, wobble 4s ease-in-out infinite";
+      } else {
+        audio.pause();
+        playing = false;
+        vinyl.style.animation = "wobble 4s ease-in-out infinite"; // stops spinning when paused
+      }
+    }
+  </script>
 
 </body>
 </html>
