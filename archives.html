@@ -3,26 +3,23 @@
 <head>
   <title>Archives</title>
   <meta charset="UTF-8">
-
   <style>
     body {
       background: black;
-      color: #888;
       font-family: monospace;
       height: 100vh;
       margin: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
+      color: #888;
       text-align: center;
-      overflow: hidden;
     }
 
     .label {
-      font-size: 13px;
-      opacity: 0.6;
       margin-bottom: 20px;
+      opacity: 0.6;
     }
 
     .vinyl-container {
@@ -32,23 +29,18 @@
       margin-bottom: 20px;
     }
 
+    /* Vinyl with visible grooves */
     .vinyl {
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background: repeating-radial-gradient(
-        circle,
-        #111 0px,
-        #111 2px,
-        #222 3px,
-        #222 4px
-      );
+      background: radial-gradient(circle at center, #222 0%, #111 30%, #222 40%, #111 50%, #222 60%, #111 70%, #222 100%);
       box-shadow: inset 0 0 10px #222, 0 0 20px #111;
       position: absolute;
       top: 0;
       left: 0;
-      transform-origin: center;
-      animation: spin 8s linear infinite, wobble 4s ease-in-out infinite;
+      transform-origin: center center;
+      animation: spin 5s linear infinite;
     }
 
     .vinyl-center {
@@ -69,18 +61,18 @@
       position: absolute;
       width: 8px;
       height: 120px;
-      background: #aaa;
-      top: -20px;
-      right: -40px;
+      top: -30px;
+      left: 160px; /* adjusted for correct tip position */
       transform-origin: top center;
       transform: rotate(-25deg);
       border-radius: 4px;
+      background: #aaa;
       box-shadow: 0 0 6px #555;
       transition: transform 0.5s ease;
       z-index: 3;
     }
 
-    .playing .needle {
+    body.playing .needle {
       transform: rotate(-5deg);
     }
 
@@ -89,32 +81,21 @@
       border: 1px solid #333;
       color: #777;
       padding: 8px 18px;
-      font-family: monospace;
       cursor: pointer;
       opacity: 0.7;
+      font-family: monospace;
     }
-
-    button:hover {
-      opacity: 1;
-    }
+    button:hover { opacity: 1; }
 
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
 
-    @keyframes wobble {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(0.5deg); }
-      50% { transform: rotate(-0.5deg); }
-      75% { transform: rotate(0.3deg); }
-    }
-
   </style>
 </head>
 
 <body>
-
   <div class="label">archive 001</div>
 
   <div class="vinyl-container">
@@ -131,25 +112,21 @@
 
   <script>
     const audio = document.getElementById("audio");
-    const vinyl = document.getElementById("vinyl");
-    const needle = document.getElementById("needle");
-    const body = document.body;
+    const bodyEl = document.body;
     let playing = false;
 
     function toggleAudio() {
       if (!playing) {
         audio.volume = 0.7;
         audio.play();
+        bodyEl.classList.add("playing");
         playing = true;
-        // add class to show needle moved
-        body.classList.add("playing");
       } else {
         audio.pause();
+        bodyEl.classList.remove("playing");
         playing = false;
-        body.classList.remove("playing");
       }
     }
   </script>
-
 </body>
 </html>
