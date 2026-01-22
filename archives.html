@@ -25,15 +25,20 @@
     /* CASSETTE BODY */
     .cassette {
       position: relative;
-      width: 220px;  
-      height: 110px;  
-      background: #222;  /* dark gray body */
+      width: 220px;
+      height: 110px;
+      background: #222;
       border-radius: 8px;
-      box-shadow: inset 0 0 6px #000, 0 0 12px #111;
+      box-shadow: inset 0 0 8px #000, 0 0 12px #111;
       display: flex;
       align-items: center;
       justify-content: space-around;
       padding: 15px;
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    body.playing .cassette {
+      box-shadow: inset 0 0 10px #000, 0 0 16px #222; /* subtle glow when playing */
     }
 
     /* REELS */
@@ -41,10 +46,11 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: #aaa;  /* light gray for contrast */
+      background: #aaa;
       box-shadow: inset 0 0 4px #555;
       position: relative;
-      animation: spin 4s linear infinite paused; /* paused by default */
+      animation: spin 4s linear infinite paused;
+      transform-origin: center;
     }
 
     .reel::before {
@@ -59,6 +65,17 @@
       border-radius: 50%;
     }
 
+    /* REEL WOBBLE */
+    body.playing .reel {
+      animation: spin 4s linear infinite, wobble 0.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes wobble {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(1deg); }
+      100% { transform: rotate(0deg); }
+    }
+
     /* TAPE LINE */
     .tape {
       position: absolute;
@@ -69,6 +86,11 @@
       background: #555;
       transform: translate(-50%, -50%);
       z-index: 1;
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    body.playing .tape {
+      box-shadow: 0 0 6px #888; /* subtle shimmer along tape line */
     }
 
     button {
@@ -86,11 +108,6 @@
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
-    }
-
-    /* Play animation */
-    body.playing .reel {
-      animation-play-state: running;
     }
 
   </style>
