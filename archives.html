@@ -25,19 +25,33 @@
       margin-bottom: 20px;
     }
 
-    .vinyl {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: radial-gradient(circle at center, #444 60%, #111 100%);
-      box-shadow: inset 0 0 10px #222, 0 0 20px #111;
+    .vinyl-container {
       position: relative;
+      width: 220px;
+      height: 220px;
       margin-bottom: 20px;
+    }
+
+    .vinyl {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: repeating-radial-gradient(
+        circle,
+        #111 0px,
+        #111 2px,
+        #222 3px,
+        #222 4px
+      );
+      box-shadow: inset 0 0 10px #222, 0 0 20px #111;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: center;
       animation: spin 8s linear infinite, wobble 4s ease-in-out infinite;
     }
 
-    .vinyl::before {
-      content: '';
+    .vinyl-center {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -47,6 +61,27 @@
       border-radius: 50%;
       background: #999;
       box-shadow: 0 0 8px #aaa;
+      z-index: 2;
+    }
+
+    /* Needle */
+    .needle {
+      position: absolute;
+      width: 8px;
+      height: 120px;
+      background: #aaa;
+      top: -20px;
+      right: -40px;
+      transform-origin: top center;
+      transform: rotate(-25deg);
+      border-radius: 4px;
+      box-shadow: 0 0 6px #555;
+      transition: transform 0.5s ease;
+      z-index: 3;
+    }
+
+    .playing .needle {
+      transform: rotate(-5deg);
     }
 
     button {
@@ -81,7 +116,13 @@
 <body>
 
   <div class="label">archive 001</div>
-  <div class="vinyl"></div>
+
+  <div class="vinyl-container">
+    <div class="vinyl" id="vinyl"></div>
+    <div class="vinyl-center"></div>
+    <div class="needle" id="needle"></div>
+  </div>
+
   <button onclick="toggleAudio()">listen</button>
 
   <audio id="audio" loop>
@@ -90,7 +131,9 @@
 
   <script>
     const audio = document.getElementById("audio");
-    const vinyl = document.querySelector(".vinyl");
+    const vinyl = document.getElementById("vinyl");
+    const needle = document.getElementById("needle");
+    const body = document.body;
     let playing = false;
 
     function toggleAudio() {
@@ -98,11 +141,12 @@
         audio.volume = 0.7;
         audio.play();
         playing = true;
-        vinyl.style.animation = "spin 8s linear infinite, wobble 4s ease-in-out infinite";
+        // add class to show needle moved
+        body.classList.add("playing");
       } else {
         audio.pause();
         playing = false;
-        vinyl.style.animation = "wobble 4s ease-in-out infinite"; // stops spinning when paused
+        body.classList.remove("playing");
       }
     }
   </script>
