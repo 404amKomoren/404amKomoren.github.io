@@ -10,33 +10,94 @@
       color: #bfbfbf;
       font-family: monospace;
       text-align: center;
-      padding-top: 40vh;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      cursor: default;
     }
 
-    .glow {
-      font-size: 22px;
-      animation: breathe 4s ease-in-out infinite;
+    .center {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
-    .flicker {
-      animation: flicker 6s infinite;
+    .title {
+      font-size: 26px;
+      animation: breathe 4s ease-in-out infinite, flicker 7s infinite;
+    }
+
+    .whisper {
+      font-size: 14px;
+      margin-top: 12px;
+      opacity: 0.8;
+      animation: breathe 6s ease-in-out infinite;
     }
 
     @keyframes breathe {
-      0% { text-shadow: 0 0 5px #444; }
-      50% { text-shadow: 0 0 12px #777; }
-      100% { text-shadow: 0 0 5px #444; }
+      0% { text-shadow: 0 0 6px #333; }
+      50% { text-shadow: 0 0 14px #777; }
+      100% { text-shadow: 0 0 6px #333; }
     }
 
     @keyframes flicker {
-      0%, 98%, 100% { opacity: 1; }
-      99% { opacity: 0.85; }
+      0%, 97%, 100% { opacity: 1; }
+      98% { opacity: 0.85; }
+      99% { opacity: 0.6; }
+    }
+
+    /* Hidden Door Area */
+    .door {
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      width: 120px;
+      height: 60px;
+      transform: translateX(-50%);
+    }
+
+    .door:hover {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24">🔑</text></svg>') 16 16, auto;
     }
   </style>
 </head>
 
 <body>
-  <div class="glow flicker">4:04 am</div>
-  <p class="glow">something is here</p>
+
+  <div class="center">
+    <div class="title">4:04 am</div>
+    <div class="whisper" id="whisper">something is here</div>
+  </div>
+
+  <!-- Invisible Door -->
+  <div class="door" onclick="enter()"></div>
+
+  <script>
+    const whispers = [
+      "something is here",
+      "you are not late",
+      "this was left on",
+      "stay for a moment",
+      "it’s quiet now"
+    ];
+
+    let index = 0;
+    const whisperEl = document.getElementById("whisper");
+
+    setInterval(() => {
+      whisperEl.style.opacity = 0;
+      setTimeout(() => {
+        index = (index + 1) % whispers.length;
+        whisperEl.textContent = whispers[index];
+        whisperEl.style.opacity = 0.8;
+      }, 800);
+    }, 6000);
+
+    function enter() {
+      window.location.href = "door.html";
+    }
+  </script>
+
 </body>
 </html>
