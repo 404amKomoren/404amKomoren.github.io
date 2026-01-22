@@ -1,13 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>404 AM</title>
+  <title>4:04 am</title>
   <meta charset="UTF-8">
-</head>
-<body style="background:black; color:#bbb; font-family:monospace; text-align:center; padding-top:40vh;">
-  
-  <p>4:04 am</p>
-  <p>something is here</p>
 
+  <style>
+    body {
+      background: black;
+      color: #bfbfbf;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 40vh;
+    }
+
+    .glow {
+      font-size: 22px;
+      animation: breathe 4s ease-in-out infinite;
+    }
+
+    .flicker {
+      animation: flicker 6s infinite;
+    }
+
+    @keyframes breathe {
+      0% { text-shadow: 0 0 5px #444; }
+      50% { text-shadow: 0 0 12px #777; }
+      100% { text-shadow: 0 0 5px #444; }
+    }
+
+    @keyframes flicker {
+      0%, 98%, 100% { opacity: 1; }
+      99% { opacity: 0.85; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="glow flicker">4:04 am</div>
+  <p class="glow">something is here</p>
 </body>
 </html>
