@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Archives</title>
+  <title>Archives - Cassette</title>
   <meta charset="UTF-8">
   <style>
     body {
-      background: black;
+      background: #111;
       font-family: monospace;
       height: 100vh;
       margin: 0;
@@ -22,12 +22,13 @@
       opacity: 0.7;
     }
 
+    /* CASSETTE BODY */
     .cassette {
       position: relative;
-      width: 300px;
+      width: 320px;
       height: 160px;
-      background: #6b4c3b;
-      border-radius: 8px;
+      background: #7d5a50; /* dusty brown */
+      border-radius: 12px;
       box-shadow: inset 0 0 10px #422e23, 0 0 20px #111;
       display: flex;
       align-items: center;
@@ -35,17 +36,17 @@
       padding: 20px;
     }
 
+    /* REELS */
     .reel {
       width: 60px;
       height: 60px;
       border-radius: 50%;
       background: #aaa;
-      position: relative;
       box-shadow: inset 0 0 6px #555;
-      animation: spin 4s linear infinite paused;
+      position: relative;
+      animation: spin 4s linear infinite paused; /* paused by default */
     }
 
-    /* reel holes for detail */
     .reel::before {
       content: '';
       position: absolute;
@@ -58,7 +59,7 @@
       border-radius: 50%;
     }
 
-    /* connecting tape line */
+    /* TAPE LINE */
     .tape {
       position: absolute;
       top: 50%;
@@ -66,8 +67,8 @@
       width: 180px;
       height: 2px;
       background: #333;
-      z-index: 1;
       transform: translate(-50%, -50%);
+      z-index: 1;
     }
 
     button {
@@ -87,6 +88,7 @@
       100% { transform: rotate(360deg); }
     }
 
+    /* Play animation */
     body.playing .reel {
       animation-play-state: running;
     }
