@@ -1,0 +1,67 @@
+!DOCTYPE html>
+<html>
+<head>
+  <title>Archives</title>
+  <meta charset="UTF-8">
+
+  <style>
+    body {
+      background: black;
+      color: #aaa;
+      font-family: monospace;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    input {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #444;
+      color: #ccc;
+      font-size: 16px;
+      text-align: center;
+      outline: none;
+      margin-top: 20px;
+      padding: 6px;
+      width: 200px;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 13px;
+      opacity: 0.7;
+      height: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div>archives are sealed</div>
+  <input type="password" id="key" placeholder="enter key" />
+  <div class="message" id="msg"></div>
+
+  <script>
+    const correctKey = "404";
+
+    const input = document.getElementById("key");
+    const msg = document.getElementById("msg");
+
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        if (input.value === correctKey) {
+          window.location.href = "archives.html";
+        } else {
+          msg.textContent = "not for you";
+          input.value = "";
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
