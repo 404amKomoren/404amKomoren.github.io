@@ -9,11 +9,9 @@
       background: black;
       color: #bfbfbf;
       font-family: monospace;
-      text-align: center;
       height: 100vh;
       margin: 0;
       overflow: hidden;
-      cursor: default;
     }
 
     .center {
@@ -21,6 +19,7 @@
       top: 45%;
       left: 50%;
       transform: translate(-50%, -50%);
+      text-align: center;
     }
 
     .title {
@@ -33,6 +32,7 @@
       margin-top: 12px;
       opacity: 0.8;
       animation: breathe 6s ease-in-out infinite;
+      transition: opacity 1s ease;
     }
 
     @keyframes breathe {
@@ -47,14 +47,13 @@
       99% { opacity: 0.6; }
     }
 
-    /* Hidden Door Area */
+    /* Hidden Door — bottom left, feels accidental */
     .door {
       position: absolute;
-      bottom: 20%;
-      left: 50%;
-      width: 120px;
-      height: 60px;
-      transform: translateX(-50%);
+      bottom: 8%;
+      left: 6%;
+      width: 80px;
+      height: 40px;
     }
 
     .door:hover {
@@ -70,29 +69,28 @@
     <div class="whisper" id="whisper">something is here</div>
   </div>
 
-  <!-- Invisible Door -->
   <div class="door" onclick="enter()"></div>
 
   <script>
     const whispers = [
       "something is here",
-      "you are not late",
       "this was left on",
       "stay for a moment",
-      "it’s quiet now"
+      "it’s quiet now",
+      "you found it"
     ];
 
-    let index = 0;
-    const whisperEl = document.getElementById("whisper");
+    let i = 0;
+    const whisper = document.getElementById("whisper");
 
     setInterval(() => {
-      whisperEl.style.opacity = 0;
+      whisper.style.opacity = 0;
       setTimeout(() => {
-        index = (index + 1) % whispers.length;
-        whisperEl.textContent = whispers[index];
-        whisperEl.style.opacity = 0.8;
-      }, 800);
-    }, 6000);
+        i = (i + 1) % whispers.length;
+        whisper.textContent = whispers[i];
+        whisper.style.opacity = 0.8;
+      }, 900);
+    }, 6500);
 
     function enter() {
       window.location.href = "door.html";
