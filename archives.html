@@ -20,6 +20,7 @@
     .label {
       margin-bottom: 20px;
       opacity: 0.7;
+      transition: all 0.3s ease-in-out;
     }
 
     /* CASSETTE BODY */
@@ -46,6 +47,17 @@
 
     body.playing .cassette {
       box-shadow: inset 0 0 10px #000, 0 0 16px #222; 
+    }
+
+    /* PULSE ANIMATION when secret found */
+    .pulse {
+      animation: pulse 0.6s ease-out 1;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 12px #fff; }
+      50% { box-shadow: 0 0 24px #fff; }
+      100% { box-shadow: 0 0 12px #fff; }
     }
 
     /* Tiny dust/flicker overlay */
@@ -144,6 +156,14 @@
       height: 20px;
       z-index: 2;
       cursor: pointer;
+      border-radius: 50%;
+      /* subtle hover glow */
+      box-shadow: 0 0 0 rgba(255,255,255,0);
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .hidden-spot:hover {
+      box-shadow: 0 0 10px #fff;
     }
 
     /* BUTTON */
@@ -165,7 +185,7 @@
 <body>
   <div class="label">archive 001</div>
 
-  <div class="cassette">
+  <div class="cassette" id="cassette">
     <div class="dust"></div> <!-- flicker overlay -->
     <div class="reel-container"><div class="reel"></div></div>
     <div class="reel-container"><div class="reel"></div></div>
@@ -182,6 +202,7 @@
   <script>
     const audio = document.getElementById("audio");
     const bodyEl = document.body;
+    const cassette = document.getElementById("cassette");
     let playing = false;
 
     function toggleAudio() {
@@ -198,10 +219,13 @@
     }
 
     function unlockNext() {
-      alert("You found the secret! Next archive unlocked."); 
-      // In practice, you can replace this with:
-      // window.location.href = "archive-002.html";
+      // pulse animation
+      cassette.classList.add("pulse");
+      setTimeout(() => cassette.classList.remove("pulse"), 600);
+
+      // secret message
+      alert("✨ You found the secret! Next archive unlocked. ✨"); 
+      // You can replace this with: window.location.href = "archive-002.html";
     }
   </script>
 </body>
-</html>
