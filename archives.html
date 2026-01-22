@@ -25,9 +25,9 @@
     /* CASSETTE BODY */
     .cassette {
       position: relative;
-      width: 220px;
-      height: 110px;
-      background: #222;
+      width: 220px;  
+      height: 110px;  
+      background: #222;  /* dark gray body */
       border-radius: 8px;
       box-shadow: inset 0 0 8px #000, 0 0 12px #111;
       display: flex;
@@ -35,6 +35,12 @@
       justify-content: space-around;
       padding: 15px;
       transition: box-shadow 0.3s ease-in-out;
+      cursor: default;
+    }
+
+    /* Hover: cursor changes to key for mystery vibe */
+    .cassette:hover {
+      cursor: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjZGRkIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHBhdGggZD0iTTEyIDJoLTF2M2gxdi0yaC0xdi0xSDh2MSBoMVYxaDF6bTAtMkg0djRIMnpNNSA1aDR2MmgtNHYtMnoiLz48L3N2Zz4='), auto;
     }
 
     body.playing .cassette {
@@ -46,11 +52,11 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: #aaa;
+      background: #aaa;  /* light gray for contrast */
       box-shadow: inset 0 0 4px #555;
       position: relative;
-      animation: spin 4s linear infinite paused;
       transform-origin: center;
+      animation: spin 4s linear infinite paused;
     }
 
     .reel::before {
@@ -65,7 +71,7 @@
       border-radius: 50%;
     }
 
-    /* REEL WOBBLE */
+    /* REEL WOBBLE & SPIN */
     body.playing .reel {
       animation: spin 4s linear infinite, wobble 0.5s ease-in-out infinite alternate;
     }
@@ -74,6 +80,11 @@
       0% { transform: rotate(0deg); }
       50% { transform: rotate(1deg); }
       100% { transform: rotate(0deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     /* TAPE LINE */
@@ -93,6 +104,7 @@
       box-shadow: 0 0 6px #888; /* subtle shimmer along tape line */
     }
 
+    /* BUTTON */
     button {
       margin-top: 20px;
       background: transparent;
@@ -104,11 +116,6 @@
       font-family: monospace;
     }
     button:hover { opacity: 1; }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
 
   </style>
 </head>
